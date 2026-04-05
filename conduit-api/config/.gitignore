@@ -1,0 +1,39 @@
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Environment & secrets
+.env
+.env.*
+/config/master.key
+/config/credentials/*.key
+
+# Database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Logs & temp
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Assets (not needed for API-only)
+/public/assets
+/public/packs
+
+# Spring
+/spring/*.pid
+
+# Coverage
+/coverage/

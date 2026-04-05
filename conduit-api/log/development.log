@@ -1,0 +1,894 @@
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (131.6ms)[0m  [1m[35mCREATE DATABASE "conduit_development" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (49.3ms)[0m  [1m[35mCREATE DATABASE "conduit_test" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ConduitApi'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-05 00:03:01.017711', '2026-04-05 00:03:01.017712') RETURNING "key" /*application='ConduitApi'*/[0m
+Migrating to CreateUsers (20260404235712)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ConduitApi'*/[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "bio" character varying DEFAULT '', "image" character varying DEFAULT '', "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ConduitApi'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username") /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260404235712') RETURNING "version" /*application='ConduitApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='ConduitApi'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+Started POST "/api/users" for ::1 at 2026-04-04 20:58:33 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  
+ActionController::RoutingError (No route matches [POST] "/api/users"):
+  
+Started POST "/api/v1/users" for ::1 at 2026-04-04 20:59:26 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 269ms (Views: 0.1ms | ActiveRecord: 22.7ms (2 queries, 0 cached) | GC: 12.7ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:00:27 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 219ms (Views: 0.1ms | ActiveRecord: 4.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:01:06 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_23a", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_23a@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_23a') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (1.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "username", "password_digest", "bio", "image", "created_at", "updated_at") VALUES ('auth_23a@test.com', 'auth_23a', '$2a$12$M8mzn/8g4Za1y6Bw6p6ISOPlfIcmbpyEfu5euurclNxfxmX3C7Sou', '', '', '2026-04-05 03:01:06.478097', '2026-04-05 03:01:06.478097') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 234ms (Views: 0.1ms | ActiveRecord: 3.5ms (3 queries, 0 cached) | GC: 0.1ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:02:33 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_23a", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_23a@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_23a') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 207ms (Views: 0.1ms | ActiveRecord: 1.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:02:56 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_23b", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_23b@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_23b') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "username", "password_digest", "bio", "image", "created_at", "updated_at") VALUES ('auth_23b@test.com', 'auth_23b', '$2a$12$rsYvrKs2WZQHnQtvMQ/lbec1BLP3EjhXkqzTKRCZc4FRjH0gvBQ8W', '', '', '2026-04-05 03:02:57.118788', '2026-04-05 03:02:57.118788') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 210ms (Views: 0.1ms | ActiveRecord: 1.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (48.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_development" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (25.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_test" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (52.5ms)[0m  [1m[35mCREATE DATABASE "conduit_development" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE DATABASE "conduit_test" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='ConduitApi'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "bio" character varying DEFAULT '', "created_at" timestamp(6) NOT NULL, "email" character varying NOT NULL, "image" character varying DEFAULT '', "password_digest" character varying NOT NULL, "updated_at" timestamp(6) NOT NULL, "username" character varying NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ConduitApi'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username") /*application='ConduitApi'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260404235712) /*application='ConduitApi'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-05 03:04:24.348616', '2026-04-05 03:04:24.348616') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '9d821849727713acde244141f0242c62b5d2f79f', '2026-04-05 03:04:24.349817', '2026-04-05 03:04:24.349818') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:04:54 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:04:54.346798', 'auth_1775357913582yz55@test.com', '', '$2a$12$mTZ6iUKatWbq/FtlW4Mc0ekfKGCWrifN6Yxn/HzXur52fYdEd1z8u', '2026-04-05 03:04:54.346798', 'auth_1775357913582yz55') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 239ms (Views: 0.1ms | ActiveRecord: 14.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (8040.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_development" /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (113.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_development" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (23.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_test" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (49.6ms)[0m  [1m[35mCREATE DATABASE "conduit_development" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (40.8ms)[0m  [1m[35mCREATE DATABASE "conduit_test" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='ConduitApi'*/[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "bio" character varying DEFAULT '', "created_at" timestamp(6) NOT NULL, "email" character varying NOT NULL, "image" character varying DEFAULT '', "password_digest" character varying NOT NULL, "updated_at" timestamp(6) NOT NULL, "username" character varying NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ConduitApi'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username") /*application='ConduitApi'*/[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260404235712) /*application='ConduitApi'*/[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-05 03:09:29.359048', '2026-04-05 03:09:29.359049') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '9d821849727713acde244141f0242c62b5d2f79f', '2026-04-05 03:09:29.361279', '2026-04-05 03:09:29.361279') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:09:53 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:09:53.334179', 'auth_1775357913582yz55@test.com', '', '$2a$12$/YI9OrYyTq8jO8OI.wpa3OxEHv560OixwcVCDZUFuESfVUKYvwkWy', '2026-04-05 03:09:53.334179', 'auth_1775357913582yz55') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 234ms (Views: 0.1ms | ActiveRecord: 18.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:10:50 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 273ms (Views: 0.1ms | ActiveRecord: 1.7ms (2 queries, 0 cached) | GC: 11.7ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:11:26 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 208ms (Views: 0.0ms | ActiveRecord: 1.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:12:15 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 422 Unprocessable Content in 214ms (Views: 0.1ms | ActiveRecord: 1.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:13:45 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_Delaney5", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_Alice80@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_Delaney5') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:13:45.970875', 'auth_alice80@test.com', '', '$2a$12$u/KxnzaCV6hmsujisM02Tuc9iTNegLZmYV5/oN7U959Q6F/Jq7/Xq', '2026-04-05 03:13:45.970875', 'auth_Delaney5') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 216ms (Views: 0.0ms | ActiveRecord: 2.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:14:59 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_23a", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_23a@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_23a') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:14:59.422970', 'auth_23a@test.com', '', '$2a$12$GDR4PA.fm0u4Yo8SHVoMVu7b2pXPuAkyG0cE8gSrdfBQDYoN1n0i.', '2026-04-05 03:14:59.422970', 'auth_23a') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 205ms (Views: 0.0ms | ActiveRecord: 3.1ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mUser Destroy (0.6ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 1 /*application='ConduitApi'*/[0m
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:20:46 -0600
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:20:47.197298', 'auth_1775357913582yz55@test.com', '', '$2a$12$9/5wf/39Mjy.Ox.As5qZ7eV4HfX.5WFrp/xHKPoaYZQkyrxjNXHHC', '2026-04-05 03:20:47.197298', 'auth_1775357913582yz55') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 244ms (Views: 0.0ms | ActiveRecord: 10.0ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:22:01 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 209ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:22:36 -0600
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:24:12 -0600
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:24:26 -0600
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:26:08 -0600
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:29:28 -0600
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:29:38 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:31:00 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+    "email": "auth_1775357913582yz55@test.com",
+  }
+}
+Processing by Api::V1::UsersController#login as HTML
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters)
+Caused by: JSON::ParserError (expected object key, got: '}' at line 3 column 3)
+
+Information for: ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+
+Information for cause: JSON::ParserError (expected object key, got: '}' at line 3 column 3):
+  
+app/controllers/api/v1/users_controller.rb:63:in 'Api::V1::UsersController#login_params'
+app/controllers/api/v1/users_controller.rb:10:in 'Api::V1::UsersController#login'
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:31:20 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 229ms (Views: 0.1ms | ActiveRecord: 9.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:31:39 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {}}
+rescue_from handled ActionController::ParameterMissing (param is missing or the value is empty or invalid: user) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/actionpack-8.1.3/lib/action_controller/metal/strong_parameters.rb:525:in 'ActionController::Parameters#require'
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:31:51 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 206ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:32:03 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 222ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:32:31 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 214ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:32:37 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 216ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:32:39 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 217ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/user" for ::1 at 2026-04-04 21:33:10 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/api/user"):
+  
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:33:28 -0600
+Processing by Api::V1::UsersController#show as HTML
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NoMethodError (undefined method 'header' for an instance of ActionDispatch::Request):
+  
+app/controllers/application_controller.rb:14:in 'ApplicationController#extract_token_from_header'
+app/controllers/application_controller.rb:22:in 'ApplicationController#decode_user_from_token'
+app/controllers/application_controller.rb:30:in 'ApplicationController#authenticate_request!'
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:34:00 -0600
+Processing by Api::V1::UsersController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PUT "/api/user" for ::1 at 2026-04-04 21:34:19 -0600
+  
+ActionController::RoutingError (No route matches [PUT] "/api/user"):
+  
+Started PUT "/api/v1/user" for ::1 at 2026-04-04 21:34:27 -0600
+Processing by Api::V1::UsersController#update as HTML
+  Parameters: {"user" => {"bio" => "Updated bio"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "bio" = 'Updated bio', "updated_at" = '2026-04-05 03:34:27.138460' WHERE "users"."id" = 4 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+Completed 200 OK in 14ms (Views: 0.1ms | ActiveRecord: 5.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:34:33 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 223ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:35:29 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with [WHERE "users"."email" = $1]) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/relation/finder_methods.rb:425:in 'ActiveRecord::FinderMethods#raise_record_not_found_exception!'
+Completed 404 Not Found in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:38:59 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with [WHERE "users"."email" = $1]) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/relation/finder_methods.rb:425:in 'ActiveRecord::FinderMethods#raise_record_not_found_exception!'
+Completed 404 Not Found in 5ms (Views: 0.1ms | ActiveRecord: 2.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:39:05 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 222ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:40:18 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 199ms (Views: 0.1ms | ActiveRecord: 2.1ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:40:21 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 218ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:40:29 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:40:57 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with [WHERE "users"."email" = $1]) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/relation/finder_methods.rb:425:in 'ActiveRecord::FinderMethods#raise_record_not_found_exception!'
+Completed 404 Not Found in 55ms (Views: 0.1ms | ActiveRecord: 53.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:41:02 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 211ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:41:05 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 219ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:41:43 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 218ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:42:13 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 200ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:42:20 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {}}
+rescue_from handled ActionController::ParameterMissing (param is missing or the value is empty or invalid: user) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/actionpack-8.1.3/lib/action_controller/metal/strong_parameters.rb:525:in 'ActionController::Parameters#require'
+Completed 400 Bad Request in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:42:26 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = '' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with [WHERE "users"."email" = $1]) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/relation/finder_methods.rb:425:in 'ActiveRecord::FinderMethods#raise_record_not_found_exception!'
+Completed 404 Not Found in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:42:33 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 401 Unauthorized in 214ms (Views: 0.1ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/user" for ::1 at 2026-04-04 21:43:02 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/api/user"):
+  
+Started PUT "/api/v1/user" for ::1 at 2026-04-04 21:44:19 -0600
+Processing by Api::V1::UsersController#update as HTML
+  Parameters: {"user" => {"image" => "https://example.com/temp.jpg"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "image" = 'https://example.com/temp.jpg', "updated_at" = '2026-04-05 03:44:19.568973' WHERE "users"."id" = 4 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+Completed 200 OK in 21ms (Views: 0.1ms | ActiveRecord: 2.7ms (4 queries, 0 cached) | GC: 11.3ms)
+
+
+Started PUT "/api/v1/user" for ::1 at 2026-04-04 21:44:31 -0600
+Processing by Api::V1::UsersController#update as HTML
+  Parameters: {"user" => {"image" => ""}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') AND "users"."id" != 4 LIMIT 1 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "image" = '', "updated_at" = '2026-04-05 03:44:31.299004' WHERE "users"."id" = 4 /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*action='update',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:49:in 'Api::V1::UsersController#update'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 2.8ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (42.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_development" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (18.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "conduit_test" /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (47.6ms)[0m  [1m[35mCREATE DATABASE "conduit_development" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35m (45.0ms)[0m  [1m[35mCREATE DATABASE "conduit_test" ENCODING = 'unicode' /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='ConduitApi'*/[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "bio" character varying DEFAULT '', "created_at" timestamp(6) NOT NULL, "email" character varying NOT NULL, "image" character varying DEFAULT '', "password_digest" character varying NOT NULL, "updated_at" timestamp(6) NOT NULL, "username" character varying NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ConduitApi'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_username" ON "users" ("username") /*application='ConduitApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260404235712) /*application='ConduitApi'*/[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-05 03:46:13.314223', '2026-04-05 03:46:13.314224') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '9d821849727713acde244141f0242c62b5d2f79f', '2026-04-05 03:46:13.316645', '2026-04-05 03:46:13.316646') RETURNING "key" /*application='ConduitApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ConduitApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(2909595196609453065) /*application='ConduitApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ConduitApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='ConduitApi'*/[0m
+Started POST "/api/v1/users" for ::1 at 2026-04-04 21:47:18 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ConduitApi'*/[0m
+Processing by Api::V1::UsersController#create as HTML
+  Parameters: {"user" => {"username" => "auth_1775357913582yz55", "email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('auth_1775357913582yz55@test.com') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER('auth_1775357913582yz55') LIMIT 1 /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("bio", "created_at", "email", "image", "password_digest", "updated_at", "username") VALUES ('', '2026-04-05 03:47:18.460553', 'auth_1775357913582yz55@test.com', '', '$2a$12$EcmxIR8ICcLsM.A0CecPU.62b20VRbg4J0HoJTAa4TXlDzlgAJdmW', '2026-04-05 03:47:18.460553', 'auth_1775357913582yz55') RETURNING "id" /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*action='create',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in 'Api::V1::UsersController#create'
+Completed 201 Created in 254ms (Views: 0.1ms | ActiveRecord: 18.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:47:35 -0600
+Processing by Api::V1::UsersController#show as HTML
+rescue_from handled ExceptionHandler::MissingToken (ExceptionHandler::MissingToken) - app/controllers/application_controller.rb:23:in 'ApplicationController#decode_user_from_token'
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:48:55 -0600
+Processing by Api::V1::UsersController#show as HTML
+rescue_from handled ExceptionHandler::MissingToken (ExceptionHandler::MissingToken) - app/controllers/application_controller.rb:23:in 'ApplicationController#decode_user_from_token'
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:48:58 -0600
+Processing by Api::V1::UsersController#show as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with 'id'=4) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/core.rb:279:in 'ActiveRecord::Core::ClassMethods#find'
+Completed 404 Not Found in 7ms (Views: 0.1ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:49:16 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 219ms (Views: 0.1ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:49:19 -0600
+Processing by Api::V1::UsersController#show as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+rescue_from handled ActiveRecord::RecordNotFound (Couldn't find User with 'id'=4) - /Users/ethansanchez/.local/share/mise/installs/ruby/3.4.8/lib/ruby/gems/3.4.0/gems/activerecord-8.1.3/lib/active_record/core.rb:279:in 'ActiveRecord::Core::ClassMethods#find'
+Completed 404 Not Found in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/users/login" for ::1 at 2026-04-04 21:49:39 -0600
+Processing by Api::V1::UsersController#login as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'auth_1775357913582yz55@test.com' LIMIT 1 /*action='login',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:12:in 'Api::V1::UsersController#login'
+Completed 200 OK in 200ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:51:05 -0600
+Processing by Api::V1::UsersController#show as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='show',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/user" for ::1 at 2026-04-04 21:51:21 -0600
+Processing by Api::V1::UsersController#show as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='show',application='ConduitApi',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:26:in 'ApplicationController#decode_user_from_token'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
